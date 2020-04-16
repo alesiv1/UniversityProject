@@ -12,7 +12,7 @@ using AngleSharp.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace Scrubber.Controllers
+namespace Scruper.Controllers
 {
 	[ApiController]
 	[Route("[controller]")]

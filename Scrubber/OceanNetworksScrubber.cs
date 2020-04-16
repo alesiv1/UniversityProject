@@ -10,7 +10,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Scrubber
+namespace Scruper
 {
 	public class OceanNetworksScrubber
 	{

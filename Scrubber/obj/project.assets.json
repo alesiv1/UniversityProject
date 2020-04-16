@@ -180,9 +180,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\ScrubberProject\\Scrubber\\Scrubber.csproj",
-      "projectName": "Scrubber",
-      "projectPath": "D:\\ScrubberProject\\Scrubber\\Scrubber.csproj",
+      "projectUniqueName": "D:\\ScrubberProject\\Scrubber\\ScruperAPI.csproj",
+      "projectName": "ScruperAPI",
+      "projectPath": "D:\\ScrubberProject\\Scrubber\\ScruperAPI.csproj",
       "packagesPath": "C:\\Users\\Andrii\\.nuget\\packages\\",
       "outputPath": "D:\\ScrubberProject\\Scrubber\\obj\\",
       "projectStyle": "PackageReference",
