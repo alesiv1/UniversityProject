@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
+using EntityGraphQL;
+using EntityGraphQL.Schema;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebAPI.Data;
@@ -16,11 +15,13 @@ namespace WebAPI.Controllers
 	{
 		private readonly ILogger<DataController> _logger;
 		private readonly ApplicationDbContext _context;
+		private readonly SchemaProvider<ApplicationDbContext> _schemaProvider;
 
-		public DataController(ILogger<DataController> logger, ApplicationDbContext context)
+		public DataController(ILogger<DataController> logger, ApplicationDbContext context, SchemaProvider<ApplicationDbContext> schemaProvider)
 		{
 			_logger = logger;
 			_context = context;
+			_schemaProvider = schemaProvider;
 		}
 
 		[HttpGet]
@@ -38,12 +39,20 @@ namespace WebAPI.Controllers
 						_logger.LogInformation($"{data.Title}. And WebAPI save some of them!");
 						break;
 					}
-					_context.OceanNetworks.Add(new OceanNetworkEntity()
+					QueryRequest query = new QueryRequest()
 					{
-						Title = data.Title,
-						Url = data.Url,
-						ShortDescription = data.ShortDescription
-					});
+						Query =
+						{
+
+						}
+					};
+					_schemaProvider.ExecuteQuery(query, _context, null, null);
+					//_context.OceanNetworks.Add(new OceanNetworkEntity()
+					//{
+					//	Title = data.Title,
+					//	Url = data.Url,
+					//	ShortDescription = data.ShortDescription
+					//});
 					_context.SaveChanges();
 					_logger.LogInformation($"Data: URL - {data.Url} , Title - {data.Title}, Description - {data.ShortDescription} , was saved!");
 				}
