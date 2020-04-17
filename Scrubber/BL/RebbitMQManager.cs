@@ -1,22 +1,19 @@
-﻿using Newtonsoft.Json;
-using RabbitMQ.Client;
-using Scruper;
+﻿using RabbitMQ.Client;
+using ScruperAPI.BL.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace ScruperAPI
+namespace ScruperAPI.BL
 {
 	public class RebbitMQManager
 	{
-		private readonly string _queueName = "data";
+		private readonly string _queueName = "siteData";
 		private readonly string _hostName = "localhost";
+		private readonly int _port = 5672;
 
 		public void SendMessage(DataModel model)
 		{
-			var factory = new ConnectionFactory() { HostName = _hostName, Port = 5672};
+			var factory = new ConnectionFactory() { HostName = _hostName, Port = _port};
 			using (var connection = factory.CreateConnection())
 			{
 				using (var channel = connection.CreateModel())
@@ -30,7 +27,7 @@ namespace ScruperAPI
 					channel.BasicPublish(exchange: string.Empty,
 										 routingKey: _queueName,
 										 basicProperties: null,
-										 body: Encoding.UTF8.GetBytes($"URL - {model.Url} , Title - {model.Title}"));
+										 body: Encoding.UTF8.GetBytes($"{model.Url}*{model.Title}*{model.ShortDescription}"));
 				}
 			}
 		}

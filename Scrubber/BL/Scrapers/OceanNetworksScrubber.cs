@@ -2,6 +2,7 @@
 using AngleSharp.Html.Dom;
 using AngleSharp.Html.Parser;
 using AngleSharp.Text;
+using ScruperAPI.BL.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,12 +11,11 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Scruper
+namespace Scruper.BL.Scrapers
 {
 	public class OceanNetworksScrubber
 	{
 		private string _baseSiteUrl = "https://www.oceannetworks.ca/news/stories";
-		public string[] QueryTerms { get; } = { "Ocean", "Nature", "Pollution" };
 
 		public IEnumerable<DataModel> GetNewsOnPage(int pageNumber = 0)
 		{
@@ -28,6 +28,7 @@ namespace Scruper
 			}
 			return news;
 		}
+		
 		#region Private Methida
 		private async Task<IHtmlDocument> ScrapeWebsite(int pageNumber = 0)
 		{
@@ -53,8 +54,6 @@ namespace Scruper
 			string htmlResult = result.InnerHtml.ReplaceFirst("        <span class=\"field-content\"><div><a href=\"", "https://www.oceannetworks.ca");
 			htmlResult = htmlResult.ReplaceFirst("\">", "*");
 			htmlResult = htmlResult.ReplaceFirst("</a>", "");
-			//htmlResult = htmlResult.ReplaceFirst("</a></div>\n<div class=\"article-title-top\">", "-");
-			//htmlResult = htmlResult.ReplaceFirst("</div>\n<hr></span>  ", "");
 			htmlResult = htmlResult.ReplaceFirst("<a href=\"", "");
 
 			return SplitResults(htmlResult);
@@ -65,15 +64,10 @@ namespace Scruper
 			return new DataModel()
 			{
 				Url = splitResults[0],
-				Title = splitResults[1]
+				Title = splitResults[1],
+				ShortDescription = "test description"
 			};
 		}
 		#endregion
-	}
-
-	public class DataModel
-	{
-		public string Url { get; set; }
-		public string Title { get; set; }
 	}
 }

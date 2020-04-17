@@ -1,19 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using AngleSharp.Dom;
-using AngleSharp.Html.Dom;
-using AngleSharp.Html.Parser;
-using AngleSharp.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using RabbitMQ.Client;
-using ScruperAPI;
+using Scruper.BL.Scrapers;
+using ScruperAPI.BL;
 
 namespace Scruper.Controllers
 {
@@ -29,20 +19,24 @@ namespace Scruper.Controllers
 		}
 
 		[HttpGet]
-		public IEnumerable<DataModel> GetScrapeResults()
+		public void GetScrapeResults()
 		{
 			OceanNetworksScrubber networksScrubber = new OceanNetworksScrubber();
 			RebbitMQManager mQManager = new RebbitMQManager();
-			var data = new List<DataModel>();
-			IEnumerable<DataModel> tempData = new List<DataModel>();
-				tempData = networksScrubber.GetNewsOnPage(5);
-				data.AddRange(tempData);
+			var data = networksScrubber.GetNewsOnPage();
 			foreach(var item in data)
 			{
-				mQManager.SendMessage(item);
-				Thread.Sleep(10000);
-			}
-			return data;
+				try
+				{
+					mQManager.SendMessage(item);
+					_logger.LogInformation($"URL - {item.Url} , Title - {item.Title}, Description - {item.ShortDescription}");
+				}
+				catch(Exception ex)
+				{
+					_logger.LogError(ex.Message);
+				}
+				Thread.Sleep(100);
+			}		
 		}	
 	}
 }
