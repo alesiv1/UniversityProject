@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AngleSharp.Dom;
@@ -11,6 +12,8 @@ using AngleSharp.Html.Parser;
 using AngleSharp.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using RabbitMQ.Client;
+using ScruperAPI;
 
 namespace Scruper.Controllers
 {
@@ -29,8 +32,17 @@ namespace Scruper.Controllers
 		public IEnumerable<DataModel> GetScrapeResults()
 		{
 			OceanNetworksScrubber networksScrubber = new OceanNetworksScrubber();
-			var rez = networksScrubber.GetNewsOnPage(1);
-			return rez;
-		}
+			RebbitMQManager mQManager = new RebbitMQManager();
+			var data = new List<DataModel>();
+			IEnumerable<DataModel> tempData = new List<DataModel>();
+				tempData = networksScrubber.GetNewsOnPage(5);
+				data.AddRange(tempData);
+			foreach(var item in data)
+			{
+				mQManager.SendMessage(item);
+				Thread.Sleep(10000);
+			}
+			return data;
+		}	
 	}
 }

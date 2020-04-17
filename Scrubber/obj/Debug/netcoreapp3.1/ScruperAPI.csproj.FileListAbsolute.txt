@@ -8,7 +8,9 @@ D:\ScrubberProject\Scrubber\bin\Debug\netcoreapp3.1\ScruperAPI.runtimeconfig.dev
 D:\ScrubberProject\Scrubber\bin\Debug\netcoreapp3.1\ScruperAPI.dll
 D:\ScrubberProject\Scrubber\bin\Debug\netcoreapp3.1\ScruperAPI.pdb
 D:\ScrubberProject\Scrubber\bin\Debug\netcoreapp3.1\AngleSharp.dll
-D:\ScrubberProject\Scrubber\obj\Debug\netcoreapp3.1\ScruperAPI.csprojAssemblyReference.cache
+D:\ScrubberProject\Scrubber\bin\Debug\netcoreapp3.1\EasyNetQ.dll
+D:\ScrubberProject\Scrubber\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+D:\ScrubberProject\Scrubber\bin\Debug\netcoreapp3.1\RabbitMQ.Client.dll
 D:\ScrubberProject\Scrubber\obj\Debug\netcoreapp3.1\staticwebassets\ScruperAPI.StaticWebAssets.Manifest.cache
 D:\ScrubberProject\Scrubber\obj\Debug\netcoreapp3.1\staticwebassets\ScruperAPI.StaticWebAssets.xml
 D:\ScrubberProject\Scrubber\obj\Debug\netcoreapp3.1\ScruperAPI.MvcApplicationPartsAssemblyInfo.cache
