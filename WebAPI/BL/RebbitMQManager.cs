@@ -39,6 +39,13 @@ namespace WebAPI
 		#region Private Methods
 		private DataModel SplitResults(string message)
         {
+            if(message.Contains("I send"))
+            {
+                return new DataModel()
+                {
+                    Title = message,
+                };
+            }
             if (string.IsNullOrEmpty(message))
             {
                 return new DataModel();

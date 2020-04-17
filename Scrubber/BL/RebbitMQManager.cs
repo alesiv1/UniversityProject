@@ -31,5 +31,25 @@ namespace ScruperAPI.BL
 				}
 			}
 		}
+		public void SendMessage(string message)
+		{
+			var factory = new ConnectionFactory() { HostName = _hostName, Port = _port };
+			using (var connection = factory.CreateConnection())
+			{
+				using (var channel = connection.CreateModel())
+				{
+					channel.QueueDeclare(queue: _queueName,
+										 durable: false,
+										 exclusive: false,
+										 autoDelete: false,
+										 arguments: null);
+
+					channel.BasicPublish(exchange: string.Empty,
+										 routingKey: _queueName,
+										 basicProperties: null,
+										 body: Encoding.UTF8.GetBytes($"{message}"));
+				}
+			}
+		}
 	}
 }

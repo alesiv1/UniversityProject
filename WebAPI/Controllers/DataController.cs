@@ -24,15 +24,20 @@ namespace WebAPI.Controllers
 		}
 
 		[HttpGet]
-		public string Get()
+		public void Get()
 		{
 			RebbitMQManager mQManager = new RebbitMQManager();
 			while (true)
 			{
-				Thread.Sleep(100);
+				Thread.Sleep(10000);
 				var data = mQManager.ReadMesage();
 				if (!string.IsNullOrWhiteSpace(data.Title))
 				{
+					if(string.IsNullOrWhiteSpace(data.Url) && string.IsNullOrWhiteSpace(data.ShortDescription))
+					{
+						_logger.LogInformation($"{data.Title}. And WebAPI save some of them!");
+						break;
+					}
 					_context.OceanNetworks.Add(new OceanNetworkEntity()
 					{
 						Title = data.Title,

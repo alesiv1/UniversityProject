@@ -20,3 +20,4 @@ D:\ScrubberProject\Scrubber\obj\Debug\netcoreapp3.1\ScruperAPI.RazorTargetAssemb
 D:\ScrubberProject\Scrubber\obj\Debug\netcoreapp3.1\ScruperAPI.csproj.CopyComplete
 D:\ScrubberProject\Scrubber\obj\Debug\netcoreapp3.1\ScruperAPI.dll
 D:\ScrubberProject\Scrubber\obj\Debug\netcoreapp3.1\ScruperAPI.pdb
+D:\ScrubberProject\Scrubber\obj\Debug\netcoreapp3.1\ScruperAPI.csprojAssemblyReference.cache
